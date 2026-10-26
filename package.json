@@ -1,17 +1,18 @@
 {
   "name": "sesion_3",
   "version": "1.0.0",
-  "description": "",
+  "description": "API para gestionar los productos de la tienda de don Pedro",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "saludo": "echo Hola, soy un script"
   },
   "keywords": [],
-  "author": "",
+  "author": "Martin Carmona",
   "license": "ISC",
-  "type": "module",
+  "type": "module", 
   "dependencies": {
     "picocolors": "^1.1.1"
   }

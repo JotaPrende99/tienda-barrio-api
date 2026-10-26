@@ -1,7 +1,7 @@
-export const formatearPrecio =(valor)=>{
-return `$ ${valor.toLocaleString("es-CO") }`
-}
+// Funciones de formato y cálculo de dinero
 
-export function formatearPrecio2(valor){
-return `${valor}`
-}
+// Convierte 8400 en "$ 8.400"
+export const formatearPrecio = (valor) => `$ ${valor.toLocaleString("es-CO")}`;
+
+// Convierte un texto a MAYÚSCULAS
+export const formatearNombre = (texto) => texto.toUpperCase();
