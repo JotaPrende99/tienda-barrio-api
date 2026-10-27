@@ -10,7 +10,7 @@
     "saludo": "echo Hola, soy un script"
   },
   "keywords": [],
-  "author": "Martin Carmona",
+  "author": "juan pablo castaño",
   "license": "ISC",
   "type": "module", 
   "dependencies": {
