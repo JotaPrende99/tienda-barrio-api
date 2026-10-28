@@ -1,7 +1,7 @@
-// Funciones de formato y cálculo de dinero
-
-// Convierte 8400 en "$ 8.400"
 export const formatearPrecio = (valor) => `$ ${valor.toLocaleString("es-CO")}`;
 
-// Convierte un texto a MAYÚSCULAS
 export const formatearNombre = (texto) => texto.toUpperCase();
+
+export const calcularIVA = (valor) => Math.round(valor * 0.19);
+
+export const totalConIVA = (valor) => valor + calcularIVA(valor);

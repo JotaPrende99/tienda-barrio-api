@@ -1,24 +1,50 @@
 import pc from "picocolors";
-import { formatearPrecio, formatearNombre } from "./util/formato.js";
+import { formatearPrecio } from "./util/formato.js";
 import { productos } from "./data/productos.js";
-import { buscarPorId, listarAgotados, valorInventario } from "./services/inventario.js";
+import { 
+  listarAgotados, 
+  valorInventario, 
+  buscarPorNombre, 
+  vender 
+} from "./services/inventario.js";
 
-// Mensajes de bienvenida y estado con picocolors
-console.log(pc.green("API Mi Tienda de Barrio"));
-console.log(pc.yellow("En construcción"));
-console.log(pc.blue("Bienvenido/a"));
 
-// Pruebas del módulo de formato
-console.log(formatearPrecio(8400));
-console.log(formatearNombre("leche 1 l"));
+const comando = process.argv[2];
+const valor1 = process.argv[3];
+const valor2 = process.argv[4];
 
-// Pruebas del módulo de inventario y datos
-console.log("Producto 3:", buscarPorId(3).nombre);
-console.log("Agotados:", listarAgotados().length);
-console.log("Valor del inventario:", formatearPrecio(valorInventario()));
+console.log(pc.green("===== TIENDA DON PEDRO ====="));
 
-// Recorrer los productos usando formato de precio
-console.log("--- Lista de Productos ---");
-for (const prod of productos) {
-  console.log(`${prod.nombre} - ${formatearPrecio(prod.precio)}`);
+if (comando === "todos") {
+  console.table(productos);
+} else if (comando === "agotados") {
+  const agotados = listarAgotados();
+  for (const p of agotados) {
+    console.log(`AGOTADO: ${p.nombre}`);
+  }
+} else if (comando === "buscar" && valor1 !== undefined) {
+  const encontrados = buscarPorNombre(valor1);
+  if (encontrados.length === 0) {
+    console.log(`No hay productos que contengan "${valor1}"`);
+  } else {
+    for (const p of encontrados) {
+      console.log(`Encontrado: ${p.nombre}: ${formatearPrecio(p.precio)} (quedan ${p.cantidad})`);
+    }
+  }
+} else if (comando === "valor") {
+  console.log(`Valor del inventario: ${formatearPrecio(valorInventario())}`);
+} else if (comando === "vender" && valor2 !== undefined) {
+  const mensaje = vender(Number(valor1), Number(valor2));
+  if (mensaje.startsWith("ERROR")) {
+    console.log(pc.red(mensaje));
+  } else {
+    console.log(mensaje);
+  }
+} else {
+  console.log("Comandos disponibles:");
+  console.log("  node app.js todos");
+  console.log("  node app.js agotados");
+  console.log("  node app.js buscar <texto>");
+  console.log("  node app.js valor");
+  console.log("  node app.js vender <id> <unidades>");
 }
